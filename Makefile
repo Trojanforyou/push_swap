@@ -1,25 +1,26 @@
 NAME = push_swap
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I./inc -Ilibft
+LDFLAGS = -Llibft -lft
 
-LIBFT_DIR = /libft
-LIBFR = $(LIBFT_DIR)/
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_INC = $(LIBFT_DIR)
 
-SRCS = src/pa.c src/pb.c src/ra.c src/rb.c src/rr.c src/rra.c src/rrb.c src/rrr.c src/sa.c src/sb.c src/ss.c src/push_swap.c
+SRCS = src/pa.c src/pb.c src/ra.c src/rb.c src/rr.c src/rra.c src/rrb.c src/rrr.c src/sa.c src/sb.c src/ss.c push_swap.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LD)
 
 $(LIBFT):
 	make -c $(LIBFT_DIR)
 
 $(OBJS): %.o: %.c
-	$(CC) $(CFLAGS) -$(LIBFT_INC) -v $< -o $@
+	$(CC) $(CFLAGS) -I$(LIBFT_INC) -v $< -o $@
 
 clean:
 	rm -f $(OBJS)
